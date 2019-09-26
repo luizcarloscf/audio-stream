@@ -13,3 +13,12 @@ To install the requirements modules, just run:
 ```bash
     pip install -r requirements.txt
 ``` 
+
+Dependencies:
+```bash
+    sudo apt-get install python3 python3-dev \
+                                    build-essential libssl-dev libffi-dev \
+                                    libxml2-dev libxslt1-dev zlib1g-dev\
+                                    libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
+
+``` 
