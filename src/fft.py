@@ -17,7 +17,6 @@ class Fft(object):
 
     def start(self, len_vector, inverse):
         self.n = len_vector
-        print(self.n)
         self.levels = self.n.bit_length() - 1
         if 2**self.levels != self.n:
             raise ValueError("Length is not a power of 2")

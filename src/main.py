@@ -1,8 +1,12 @@
-import logging
-import time
 from audio_stream import AudioStream
 from utils import error_messages
 from fft import Fft
+
+import logging
+import time
+
+logging.basicConfig(level=logging.INFO,
+                    format='[%(levelname)s][%(asctime)s] %(message)s')
 
 if __name__ == '__main__':
 
@@ -12,17 +16,21 @@ if __name__ == '__main__':
     #Furrier Transform Object
     fft = Fft()
 
+    #generating the exponation table
     fft.start(2048, True)
 
     #object for stream
     audio = AudioStream(rate=44100, chunk=1024)
 
+    #logging configurations
+    logging.info({'CHUNK': audio.CHUNK, 'RATE': audio.RATE})
+
     #initialize our figure
     audio.init_plots()
 
     #variables to measurement performance
-    start_time = time.time()
     frames = 0
+    start_time = time.time()
 
     #start capture audio and plotting
     while audio.pause is not True:
@@ -32,7 +40,7 @@ if __name__ == '__main__':
         audio.plot(data=data, data_fft=fft.transform(data))
         frames += 1
 
-    #infos of perfomance
+    #info of perfomance
     logging.info({'fps': round(frames / (time.time() - start_time), 2)})
 
     #exiting
