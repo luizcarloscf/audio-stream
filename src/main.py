@@ -12,8 +12,10 @@ if __name__ == '__main__':
     #Furrier Transform Object
     fft = Fft()
 
+    fft.start(2048, True)
+
     #object for stream
-    audio = AudioStream(rate=44100, chunk=4096)
+    audio = AudioStream(rate=44100, chunk=1024)
 
     #initialize our figure
     audio.init_plots()
