@@ -2,24 +2,36 @@ import logging
 import time
 from audio_stream import AudioStream
 from utils import error_messages
+from fft import Fft
 
 if __name__ == '__main__':
 
     #hadling with error messages from ALSA
     error_messages()
 
+    #Furrier Transform Object
+    fft = Fft()
+
     #object for stream
-    audio = AudioStream(rate=44100, chunk=1024)
+    audio = AudioStream(rate=44100, chunk=4096)
 
     #initialize our figure
     audio.init_plots()
 
-    #ploting
-    while audio.pause is False:
-        audio.start_plot()
+    #variables to measurement performance
+    start_time = time.time()
+    frames = 0
 
-    #info
-    logging.info({'FPS': audio.frame_count / (time.time() - audio.start_time)})
+    #start capture audio and plotting
+    while audio.pause is not True:
+
+        #getting data from the buffer
+        data = audio.get_data()
+        audio.plot(data=data, data_fft=fft.transform(data))
+        frames += 1
+
+    #infos of perfomance
+    logging.info({'fps': round(frames / (time.time() - start_time), 2)})
 
     #exiting
     audio.exit_app()
