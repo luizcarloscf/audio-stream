@@ -2,14 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pyaudio
 import struct
-import time
-import logging
-import sys
-from collections import deque
-from threading import Thread
-
-logging.basicConfig(level=logging.INFO,
-                    format='[%(levelname)s][%(asctime)s] %(message)s')
 
 
 class AudioStream(object):
@@ -25,9 +17,6 @@ class AudioStream(object):
         self.FORMAT = pyaudio.paInt16
         self.CHANNELS = 1
         self.pause = False
-
-        #logging the configured info
-        logging.info({'CHUNK': self.CHUNK, 'RATE': self.RATE})
 
         #stream object
         self.p = pyaudio.PyAudio()
