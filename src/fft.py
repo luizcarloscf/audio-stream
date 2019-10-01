@@ -2,8 +2,15 @@ import numpy as np
 
 
 class Fft(object):
-    def __init__(self):
-        pass
+    def __init__(self, len_vector, inverse):
+
+        self.n = len_vector
+        self.levels = self.n.bit_length() - 1
+        if 2**self.levels != self.n:
+            raise ValueError("Length is not a power of 2")
+
+        coef = (2 if inverse else -2) * np.pi / len_vector
+        self.exptable = [np.exp(1j * i * coef) for i in range(len_vector // 2)]
 
     def transform_numpy(self, data):
         return list(np.fft.fft(data))
@@ -14,15 +21,6 @@ class Fft(object):
             y = (y << 1) | (data & 1)
             data >>= 1
         return y
-
-    def start(self, len_vector, inverse):
-        self.n = len_vector
-        self.levels = self.n.bit_length() - 1
-        if 2**self.levels != self.n:
-            raise ValueError("Length is not a power of 2")
-
-        coef = (2 if inverse else -2) * np.pi / len_vector
-        self.exptable = [np.exp(1j * i * coef) for i in range(len_vector // 2)]
 
     def transform(self, vector):
 

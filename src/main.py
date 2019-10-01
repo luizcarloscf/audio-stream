@@ -14,10 +14,7 @@ if __name__ == '__main__':
     error_messages()
 
     #Furrier Transform Object
-    fft = Fft()
-
-    #generating the exponation table
-    fft.start(2048, True)
+    fft = Fft(2048, True)
 
     #object for stream
     audio = AudioStream(rate=44100, chunk=1024)
