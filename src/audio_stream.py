@@ -45,10 +45,7 @@ class AudioStream(object):
         self.line, = ax1.plot(x, np.random.rand(self.CHUNK), '-', lw=2)
 
         # create semilogx line for spectrum
-        self.line_fft, = ax2.semilogx(xf,
-                                      np.random.rand(self.CHUNK),
-                                      '-',
-                                      lw=2)
+        self.line_fft, = ax2.semilogx(xf, np.random.rand(self.CHUNK), '-', lw=2)
 
         # format waveform axes
         ax1.set_title('AUDIO WAVEFORM')
@@ -83,8 +80,7 @@ class AudioStream(object):
     def plot(self, data, data_fft):
 
         self.line.set_ydata(np.array(data, dtype='b')[::2] + 128)
-        self.line_fft.set_ydata(
-            np.abs(data_fft[0:self.CHUNK]) / (128 * self.CHUNK))
+        self.line_fft.set_ydata(np.abs(data_fft[0:self.CHUNK]) / (128 * self.CHUNK))
 
         # update figure canvas
         self.fig.canvas.draw()

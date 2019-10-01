@@ -5,8 +5,7 @@ from fft import Fft
 import logging
 import time
 
-logging.basicConfig(level=logging.INFO,
-                    format='[%(levelname)s][%(asctime)s] %(message)s')
+logging.basicConfig(level=logging.INFO, format='[%(levelname)s][%(asctime)s] %(message)s')
 
 if __name__ == '__main__':
 
