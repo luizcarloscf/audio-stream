@@ -1,8 +1,21 @@
+# Audio Analysis
+
+A python project that uses audio stream from a microphone to analyze and plotting.
+
+## Stream
+
+The audio is capture from the microphone using a python package [PyAudio](https://pypi.org/project/PyAudio/). PyAudio provides Python bindings for PortAudio, the cross-platform audio I/O library. 
+
+Also, create a plotting figure using [matplotlib](https://matplotlib.org/).
+
+Matplotlib is a Python 2D plotting library which produces publication quality figures in a variety of hardcopy formats and interactive environments across platforms
+
+The plotting figure show the audio that is being captured and the spectrum.
+
+The spectrum analysis was possible by implementing a algorithm that calculates  Fast Furrier Transform (FFT).  
+
 ## Fast Furrier Transform
 
-Implementation of a Fast Fourier Transform (FFT) in Python. 
-
-### About 
 
 The discrete Fourier transform (DFT) is a mathematical technique used to convert temporal or spatial data into frequency domain data. The DFT, is defined as:
 
@@ -13,7 +26,7 @@ The FFT is a fast algorithm to compute the DFT. It's possible to divide the DFT 
 Based on the conclusion above, we design a algorithm to compute the FFT.
 
 
-### Developing
+## Developing
 
 #### Requirements
 
