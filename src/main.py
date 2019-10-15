@@ -1,7 +1,7 @@
 from audio_stream import AudioStream
 from utils import error_messages
 from fft import Fft
-
+from recorder import MicrophoneRecorder
 import logging
 import time
 
@@ -12,8 +12,10 @@ if __name__ == '__main__':
     #hadling with error messages from ALSA
     error_messages()
 
+    mic = MicrophoneRecorder(44100, 1024)
+
     #Furrier Transform Object
-    fft = Fft(2048, True)
+    fft = Fft(2 * 1024, True)
 
     #object for stream
     audio = AudioStream(rate=44100, chunk=1024)
@@ -31,13 +33,12 @@ if __name__ == '__main__':
     #start capture audio and plotting
     while audio.pause is not True:
 
-        #getting data from the buffer
-        data = audio.get_data()
-        audio.plot(data=data, data_fft=fft.transform(data))
+        data = mic.get_frames()
+        audio.plot(data=data[-1], data_fft=fft.transform(data[-1]))
         frames += 1
 
     #info of perfomance
     logging.info({'fps': round(frames / (time.time() - start_time), 2)})
 
     #exiting
-    audio.exit_app()
+    mic.close()

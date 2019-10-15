@@ -12,24 +12,7 @@ class AudioStream(object):
 
         #RATE is the frequency of the samples
         self.RATE = rate
-
-        #other configurations
-        self.FORMAT = pyaudio.paInt16
-        self.CHANNELS = 1
         self.pause = False
-
-        #stream object
-        self.p = pyaudio.PyAudio()
-
-        #open the stream
-        self.stream = self.p.open(
-            format=self.FORMAT,
-            channels=self.CHANNELS,
-            rate=self.RATE,
-            input=True,
-            output=True,
-            frames_per_buffer=self.CHUNK,
-        )
 
     def init_plots(self):
 
@@ -60,7 +43,7 @@ class AudioStream(object):
         )
         plt.setp(
             ax2,
-            yticks=[0, 1],
+            yticks=[0, 10],
         )
 
         # format spectrum axes
@@ -71,23 +54,16 @@ class AudioStream(object):
         thismanager.window.setGeometry(5, 120, 1910, 1070)
         plt.show(block=False)
 
-    def get_data(self):
-
-        data = self.stream.read(self.CHUNK, exception_on_overflow=False)
-        data_int = struct.unpack(str(2 * self.CHUNK) + 'B', data)
-        return data_int
-
     def plot(self, data, data_fft):
+        print(len(data))
 
         self.line.set_ydata(np.array(data, dtype='b')[::2] + 128)
-        self.line_fft.set_ydata(np.abs(data_fft[0:self.CHUNK]) / (128 * self.CHUNK))
+
+        self.line_fft.set_ydata(np.abs(data_fft[0:2 * self.CHUNK:2]) / (128 * self.CHUNK))
 
         # update figure canvas
         self.fig.canvas.draw()
         self.fig.canvas.flush_events()
-
-    def exit_app(self):
-        self.p.close(self.stream)
 
     def onClick(self, event):
         self.pause = True
