@@ -28,7 +28,7 @@ class AudioStream(object):
         self.line, = ax1.plot(x, np.random.rand(self.CHUNK), '-', lw=2)
 
         # create semilogx line for spectrum
-        self.line_fft, = ax2.semilogx(xf, np.random.rand(self.CHUNK), '-', lw=2)
+        self.line_fft, = ax2.plot(xf, np.random.rand(self.CHUNK), '-', lw=2)
 
         # format waveform axes
         ax1.set_title('AUDIO WAVEFORM')
@@ -43,7 +43,7 @@ class AudioStream(object):
         )
         plt.setp(
             ax2,
-            yticks=[0, 10],
+            yticks=[0, 20],
         )
 
         # format spectrum axes
@@ -55,7 +55,6 @@ class AudioStream(object):
         plt.show(block=False)
 
     def plot(self, data, data_fft):
-        print(len(data))
 
         self.line.set_ydata(np.array(data, dtype='b')[::2] + 128)
 

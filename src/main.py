@@ -34,8 +34,9 @@ if __name__ == '__main__':
     while audio.pause is not True:
 
         data = mic.get_frames()
-        audio.plot(data=data[-1], data_fft=fft.transform(data[-1]))
-        frames += 1
+        if len(data) > 0:
+            audio.plot(data=data[-1], data_fft=fft.transform(data[-1]))
+            frames += 1
 
     #info of perfomance
     logging.info({'fps': round(frames / (time.time() - start_time), 2)})
