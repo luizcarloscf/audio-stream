@@ -15,7 +15,7 @@ if __name__ == '__main__':
     mic = MicrophoneRecorder(44100, 1024)
 
     #Furrier Transform Object
-    fft = Fft(2 * 1024, True)
+    fft = Fft(1024, True)
 
     #object for stream
     audio = AudioStream(rate=44100, chunk=1024)

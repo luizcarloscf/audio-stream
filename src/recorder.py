@@ -13,7 +13,7 @@ class MicrophoneRecorder(object):
                                   channels=1,
                                   rate=self.rate,
                                   input=True,
-                                  frames_per_buffer=self.chunksize * 2,
+                                  frames_per_buffer=self.chunksize,
                                   stream_callback=self.new_frame)
         self.lock = threading.Lock()
         self.stop = False
