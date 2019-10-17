@@ -1,5 +1,5 @@
 from recorder import MicrophoneRecorder
-from audio_stream import Graphic
+from graphic import Graphic
 from utils import error_messages
 from fft import Fft
 
