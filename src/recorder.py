@@ -1,3 +1,9 @@
+"""
+This classes uses a thread for reading the buffer of audio.
+When that the function get_frames() is called, 
+return the buffer of all audio collected yet and clean. 
+"""
+
 import pyaudio
 import threading
 import atexit
@@ -6,6 +12,7 @@ import numpy as np
 
 class MicrophoneRecorder(object):
     def __init__(self, rate=4000, chunksize=1024):
+
         self.rate = rate
         self.chunksize = chunksize
         self.p = pyaudio.PyAudio()

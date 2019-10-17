@@ -34,6 +34,9 @@ class Fft(object):
         return y
 
     def transform(self, vector):
+        """ Computes the FFT based on the algorithm Cooley and Tukey. 
+        This approach exploite the simetry in calculation the FFT.
+        """
         #Copy the reversed-bit vector
         vector = [vector[self.reversed_bit(i, self.levels)] for i in range(self.n)]
 
