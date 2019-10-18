@@ -3,27 +3,64 @@ from graphic import Graphic
 from utils import error_messages
 from fft import Fft
 
+import argparse
 import logging
 import time
 
-logging.basicConfig(level=logging.INFO, format='[%(levelname)s][%(asctime)s] %(message)s')
 
-if __name__ == '__main__':
+def main():
+
+    parser = argparse.ArgumentParser(description='Um programa de exemplo.')
+
+    parser.add_argument('-c',
+                        '--chunk',
+                        action='store',
+                        dest='chunk',
+                        default=1024,
+                        required=False,
+                        help='Number of samples')
+
+    parser.add_argument('-r',
+                        '--rate',
+                        action='store',
+                        dest='rate',
+                        default=44100,
+                        required=False,
+                        help='Frenquecy of sampling')
+
+    parser.add_argument('-n',
+                        '--normalize',
+                        action='store_true',
+                        dest='norm',
+                        help='Normalize graphic')
+
+    parser.add_argument('-y',
+                        '--y-scale',
+                        action='store',
+                        dest='y_scale',
+                        default=32678,
+                        help='Scale of data in Y at graphic')
+
+    #getting the arguments
+    args = parser.parse_args()
+
+    #logging level
+    logging.basicConfig(level=logging.INFO, format='[%(levelname)s][%(asctime)s] %(message)s')
 
     #hadling with error messages from ALSA
     error_messages()
 
     #object for capture the audio
-    mic = MicrophoneRecorder(44100, 1024)
+    mic = MicrophoneRecorder(chunksize=args.chunk, rate=args.rate)
 
     #Furrier Transform Object
-    fft = Fft(1024, True)
+    fft = Fft(len_vector=args.chunk, inverse=True)
 
     #object for stream with matplotlib
-    graphic = Graphic(rate=44100, chunk=1024)
+    graphic = Graphic(rate=args.rate, chunk=args.chunk, scale=args.y_scale, norm=args.norm)
 
     #logging configurationsself
-    logging.info({'CHUNK': graphic.CHUNK, 'RATE': graphic.RATE})
+    logging.info({'CHUNK': args.chunk, 'RATE': args.rate})
 
     #initialize our figure
     graphic.init_plots()
@@ -50,3 +87,7 @@ if __name__ == '__main__':
 
     #exiting
     mic.close()
+
+
+if __name__ == '__main__':
+    main()
