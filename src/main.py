@@ -78,7 +78,7 @@ def main():
         if len(data) > 0:
 
             #plotting only the last frame of audio captured
-            graphic.plot(data=data[-1], data_fft=fft.transform_numpy(data[-1]))
+            graphic.plot(data=data[-1], data_fft=fft.transform(data[-1]))
 
         frames += 1
 
