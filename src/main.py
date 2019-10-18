@@ -10,7 +10,7 @@ import time
 
 def main():
 
-    parser = argparse.ArgumentParser(description='Um programa de exemplo.')
+    parser = argparse.ArgumentParser(description='Audio Stream')
 
     parser.add_argument('-c',
                         '--chunk',
