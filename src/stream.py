@@ -22,7 +22,7 @@ if __name__ == '__main__':
     #object for stream with matplotlib
     graphic = Graphic(rate=44100, chunk=1024)
 
-    #logging configurations
+    #logging configurationsself
     logging.info({'CHUNK': graphic.CHUNK, 'RATE': graphic.RATE})
 
     #initialize our figure
@@ -41,7 +41,7 @@ if __name__ == '__main__':
         if len(data) > 0:
 
             #plotting only the last frame of audio captured
-            graphic.plot(data=data[-1], data_fft=fft.transform(data[-1]))
+            graphic.plot(data=data[-1], data_fft=fft.transform_numpy(data[-1]))
 
         frames += 1
 

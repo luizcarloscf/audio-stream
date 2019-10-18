@@ -19,7 +19,7 @@ class Graphic(object):
     def init_plots(self):
 
         #vectors for plotting
-        self.freq_vect = np.fft.fftfreq(self.CHUNK, 1. / self.RATE)
+        self.freq_vect = self.RATE*np.arange(self.CHUNK//2)/self.CHUNK
         self.time_vect = np.arange(self.CHUNK, dtype=np.float32) / self.RATE * 1000
 
         #create matplotlib figure and axes
@@ -30,13 +30,15 @@ class Graphic(object):
         self.ax1.set_title('AUDIO WAVEFORM')
 
         #setup the subplot of wave plot
-        self.ax1.set_ylim(-32768, 32768)
+        #self.ax1.set_ylim(-32768, 32768)
+        self.ax1.set_ylim(-10000, 10000)
         self.ax1.set_xlim(0, self.time_vect.max())
         self.ax1.set_xlabel(u'time (ms)', fontsize=10)
         self.ax1.set_ylabel(u'Magnitude', fontsize=10)
 
         #setup the subplot of frequency plot
-        self.ax2.set_ylim(0, 1)
+        #self.ax2.set_xscale('log')
+        self.ax2.set_ylim(0, 4000)
         self.ax2.set_xlim(0, self.freq_vect.max())
         self.ax2.set_xlabel(u'frequency (Hz)', fontsize=10)
         self.ax2.set_ylabel(u'|Amplitude|', fontsize=10)
@@ -56,12 +58,19 @@ class Graphic(object):
         self.line1.set_data(self.time_vect, data)
 
         #normalize data from fft
-        data_fft_max = np.abs(data_fft).max()
-        if (data_fft_max > 0):
-            data_fft = [i / data_fft_max for i in data_fft]
+        #data_fft_max = np.abs(data_fft).max()
+        # print('data')
+        # print(data.max())
+
+        # print('fft')
+        # print(data_fft_max)
+        # if (data_fft_max > 0):
+        #     data_fft = [i / data_fft_max for i in data_fft]
 
         #update frequency plot
-        self.line2.set_data(self.freq_vect, np.abs(data_fft))
+        #print(np.abs(data_fft))
+
+        self.line2.set_data(self.freq_vect, ((np.abs(data_fft[:self.CHUNK//2])*2)/self.CHUNK))
 
         # update figure canvas
         self.fig.canvas.draw()
