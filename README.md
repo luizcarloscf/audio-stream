@@ -1,20 +1,25 @@
-# Audio Analysis
+# Audio Stream
+Audio is capture from the microphone and plotting the wave form in time and frequency domain.
+## Usage
+Run on terminal:
+```bash
+git clone https://github.com/luizcarloscf/audio-stream.git
+cd audio-stream
+./bootstrap.sh
+python3 src/main.py
+```
+For more informations about what can be configurated just run:
+```bash
+python3 src/main.py --help
+```
 
-A python project that uses audio stream from a microphone to analyze and plotting.
+## About
 
-## Stream
+### Audio recorder
+The audio is capture from the microphone using a python package [PyAudio](https://pypi.org/project/PyAudio/) on a thread. PyAudio provides Python bindings for PortAudio, the cross-platform audio I/O library. 
 
-The audio is capture from the microphone using a python package [PyAudio](https://pypi.org/project/PyAudio/). PyAudio provides Python bindings for PortAudio, the cross-platform audio I/O library. 
-
-Also, create a plotting figure using [matplotlib](https://matplotlib.org/).
-
-Matplotlib is a Python 2D plotting library which produces publication quality figures in a variety of hardcopy formats and interactive environments across platforms
-
-The plotting figure show the audio that is being captured and the spectrum.
-
-The spectrum analysis was possible by implementing a algorithm that calculates  Fast Furrier Transform (FFT).  
-
-## Fast Furrier Transform
+### Fast Fourier Transform
+The audio analysis to get the data on frequency domain is compute by the Fast Fourier Transform.
 
 
 The discrete Fourier transform (DFT) is a mathematical technique used to convert temporal or spatial data into frequency domain data. The DFT, is defined as:
@@ -25,30 +30,27 @@ The FFT is a fast algorithm to compute the DFT. It's possible to divide the DFT 
 
 Based on the conclusion above, we design a algorithm to compute the FFT.
 
+### Graphic
+
+Create a plotting figure using [matplotlib](https://matplotlib.org/).
+
+Matplotlib is a Python 2D plotting library which produces publication quality figures in a variety of hardcopy formats and interactive environments across platforms
+
+The plotting figure show the audio that is being captured and the spectrum.
 
 ## Developing
 
-#### Requirements
+### Requirements
 
-Dependencies on [Ubuntu](https://ubuntu.com/):
+To install the dependencies on [Ubuntu](https://ubuntu.com/), just run:
 ```bash
-sudo apt-get install python3 \
-                        python3-dev \
-                        build-essential \
-                        libssl-dev \
-                        libffi-dev \
-                        libxml2-dev \
-                        libxslt1-dev \
-                        zlib1g-dev\
-                        libasound-dev \
-                        portaudio19-dev \
-                        libportaudio2 \
-                        libportaudiocpp0
+./bootstrap.sh
+``` 
 
-``` 
-To install the requirements modules, just run:
-```bash
-pip3 install -r requirements.txt
-``` 
+
+
+
+
+
 
 
